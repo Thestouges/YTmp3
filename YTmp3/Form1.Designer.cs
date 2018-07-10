@@ -87,22 +87,22 @@
             // wavradio
             // 
             this.wavradio.AutoSize = true;
-            this.wavradio.Checked = true;
             this.wavradio.Location = new System.Drawing.Point(334, 101);
             this.wavradio.Name = "wavradio";
             this.wavradio.Size = new System.Drawing.Size(48, 17);
             this.wavradio.TabIndex = 6;
-            this.wavradio.TabStop = true;
             this.wavradio.Text = ".wav";
             this.wavradio.UseVisualStyleBackColor = true;
             // 
             // mp3radio
             // 
             this.mp3radio.AutoSize = true;
+            this.mp3radio.Checked = true;
             this.mp3radio.Location = new System.Drawing.Point(280, 101);
             this.mp3radio.Name = "mp3radio";
             this.mp3radio.Size = new System.Drawing.Size(48, 17);
             this.mp3radio.TabIndex = 7;
+            this.mp3radio.TabStop = true;
             this.mp3radio.Text = ".mp3";
             this.mp3radio.UseVisualStyleBackColor = true;
             // 
@@ -146,6 +146,7 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.convert);
             this.Controls.Add(this.URLTextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "Form1";
             this.Text = "Youtube Audio Converter";
             this.ResumeLayout(false);

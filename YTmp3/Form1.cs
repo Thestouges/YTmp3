@@ -16,6 +16,8 @@ using NAudio.Wave;
 using NAudio.Lame;
 using System.IO;
 using System.Reflection;
+using System.Threading;
+using YTmp3.Properties;
 
 namespace YTmp3
 {
@@ -34,13 +36,30 @@ namespace YTmp3
 
         private void Initialize()
         {
-            FilePathText.Text = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            this.MaximizeBox = false;
+            if (Settings.Default["UserFileDir"].ToString() == "FirstUse")
+            {
+                FilePathText.Text = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + "\\";
+                Settings.Default.Save();
+            }
+            else
+            {
+                FilePathText.Text = Settings.Default["UserFileDir"].ToString();
+            }
             FilePathText.ReadOnly = true;
             URLTextBox.Text = "";
             convert.Enabled = false;
+            
         }
 
         private void convert_Click(object sender, EventArgs e)
+        {
+            Thread instance;
+            instance = new Thread(Converting);
+            instance.Start();
+            
+        }
+        private void Converting()
         {
             convert.Enabled = false;
             textBox1.Text = "";
@@ -80,6 +99,7 @@ namespace YTmp3
             AudioReader = new AudioFileReader(video.Uri);
             textBox1.Text += "Writing mp3..." + "\r\n";
             lfw = new LameMP3FileWriter(FilePathText.Text + filename + ".mp3", AudioReader.WaveFormat, LAMEPreset.VBR_90);
+            textBox1.Text += "Copying..." + "\r\n";
             AudioReader.CopyTo(lfw);
         }
 
@@ -129,6 +149,8 @@ namespace YTmp3
             {
                 FilePathText.Text = Dir.SelectedPath + "\\";
             }
+            Settings.Default["UserFileDir"] = FilePathText.Text;
+            Settings.Default.Save();
             Dir.Dispose();
         }
     }
