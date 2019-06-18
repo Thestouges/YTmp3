@@ -87,9 +87,10 @@ namespace YTmp3
                 DisposeData();
                 textBox1.Text += "Finished" + "\r\n";
             }
-            catch
+            catch(Exception ex)
             {
                 textBox1.Text += "Error Occured..." + "\r\n";
+                textBox1.Text += ex.Message;
             }
             convert.Enabled = true;
         }
