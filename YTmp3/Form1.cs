@@ -56,7 +56,8 @@ namespace YTmp3
         {
             Thread instance;
             instance = new Thread(Converting);
-            instance.Start();
+            Invoke(new Action(() => Converting()));
+            //instance.Start();
             
         }
         private void Converting()
@@ -90,7 +91,8 @@ namespace YTmp3
             catch(Exception ex)
             {
                 textBox1.Text += "Error Occured..." + "\r\n";
-                textBox1.Text += ex.Message;
+                textBox1.Text += ex.Message + "\r\n";
+                textBox1.Text += "Video is encrypted/protected";
             }
             convert.Enabled = true;
         }
