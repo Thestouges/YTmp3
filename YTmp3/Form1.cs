@@ -137,11 +137,15 @@ namespace YTmp3
             {
                 video = YouTube.Default.GetVideo(URLTextBox.Text);
                 NameTextBox.Text = video.Title;
+                if (video.IsEncrypted)
+                {
+                    throw new Exception("Video is encrypted");
+                }
                 convert.Enabled = true;
             }
-            catch
+            catch(Exception ex)
             {
-                NameTextBox.Text = "";
+                textBox1.Text = ex.Message;
             }
         }
 
